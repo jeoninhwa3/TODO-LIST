@@ -9,15 +9,30 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="contents">
-        <div class="todo-wrap">
-            <h2 class="tit">Inwon's To Do List</h2>
-            <form class="todo-form">
-                <input type="text" placeholder="Please enter your to-do.">
-            </form>
-            <ul class="todo-list"></ul>
+    <header>
+
+    </header>
+    <!-- //header -->
+    <main>
+        <div class="contents">
+            <div class="login-wrap">
+                <form class="login-form hidden">
+                    <input type="text" placeholder="please enter your name." required>
+                </form>
+            </div>
+            <!-- //login-wrap -->
+            <div class="todo-wrap hidden">
+                <h2 class="greeting hidden"></h2>
+                <h1 class="tit">Schedule</h1>
+                <span class="date"></span>
+                <form class="todo-form">
+                    <input type="text" placeholder="Please enter your to-do." required>
+                </form>
+                <ul class="todo-list"></ul>
+            </div>
+            <!-- //todo-wrap -->
         </div>
-    </div>
+    </main>
     <script src="js/app.js"></script>
     <script src="https://kit.fontawesome.com/d945d14c7d.js" crossorigin="anonymous"></script>
 </body>

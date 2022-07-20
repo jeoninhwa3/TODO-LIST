@@ -1,7 +1,43 @@
+const loginWrap = document.querySelector('.login-wrap');
+const loginForm = document.querySelector('.login-form');
+const loginInput = loginForm.querySelector('input');
+const todoWrap = document.querySelector('.todo-wrap');
+const greeting = document.querySelector('.greeting');
 const todoFrom = document.querySelector('.todo-form');
 const todoInput = todoFrom.querySelector('input');
 const todoList = document.querySelector('.todo-list');
+const date = document.querySelector('.date'); 
 
+
+//login
+const HIDDEN_CLASSNAME = 'hidden';
+const USERNAME_KEY = 'username';
+
+function loginSubmit(event){
+    event.preventDefault();
+    const username = loginInput.value;
+    loginForm.classList.add(HIDDEN_CLASSNAME);
+    localStorage.setItem(USERNAME_KEY, username);
+    greeting.classList.remove(HIDDEN_CLASSNAME);
+    greeting.innerText = `WELCOME, ${username}`
+    loginWrap.classList.add(HIDDEN_CLASSNAME);
+    todoWrap.classList.remove(HIDDEN_CLASSNAME);
+}
+
+const savedUsername = localStorage.getItem(USERNAME_KEY);
+
+if(savedUsername === null) {
+    loginForm.classList.remove(HIDDEN_CLASSNAME);
+    loginForm.addEventListener('submit', loginSubmit);
+} else {
+    greeting.classList.remove(HIDDEN_CLASSNAME);
+    greeting.innerText = `WELCOME, ${savedUsername}`
+    loginWrap.classList.add(HIDDEN_CLASSNAME);
+    todoWrap.classList.remove(HIDDEN_CLASSNAME);
+}
+
+
+//todolist
 const TODO_KEY = 'todo';
 
 let todos = [];
@@ -13,6 +49,7 @@ function saveTodo(){
 function deleteTodo(event){
     const button = event.target.parentElement;
     const li = button.parentElement;
+    console.log(li)
     li.remove();
     todos = todos.filter((todo) => todo.id !== parseInt(li.id));
     saveTodo();
@@ -56,3 +93,13 @@ if(savedTodo !== null) {
     todos = parseTodo;
     parseTodo.forEach(paintTodo);   
 }
+
+
+//date
+const today = new Date();
+const month = today.getMonth();
+const day = today.getDate();
+const monthName = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", 
+"JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
+
+date.innerText = `${monthName[month]} ${day}`
