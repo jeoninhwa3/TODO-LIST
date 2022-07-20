@@ -1,6 +1,7 @@
 body {
     /* font-family: 'Yeon Sung', cursive; */
     font-family: Helvetica;
+    background-color: #fff4e1;
 }
 .hidden {
     display: none;
@@ -11,10 +12,20 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.todo-wrap {
-    max-width: 320px;
-    padding-top: 50px;
-    margin: 0 auto;
+header {
+    position: relative;
+    height: 70px;
+    padding: 0 20px;
+}
+header .mypage {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px;
+    font-size: 20px;
+}
+main {
+    padding: 0 20px;
 }
 .todo-wrap .greeting {
     margin-bottom: 10px;
