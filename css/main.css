@@ -27,18 +27,23 @@ header .mypage {
 main {
     padding: 0 20px;
 }
+.contents {
+    background-color: #FEC574;
+    border-radius: 20px;
+    padding: 25px 20px;
+}
 .todo-wrap .greeting {
     margin-bottom: 10px;
 } 
 .todo-wrap .tit {
     position: relative;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
     font-size: 40px;
     font-weight: bold;
 }
 .todo-wrap .date {
     display: inline-block;
-    color: #FEC574;
+    color: #fff;
     font-weight: bold;
     margin-bottom: 15px;
 }
@@ -55,10 +60,10 @@ main {
     color: #bbb;
 }
 .todo-wrap .todo-list li {
-    padding: 20px 50px;
+    padding: 20px 30px;
     margin-bottom: 20px;
     border-radius: 20px;
-    background-color: #FEC574;
+    background-color: #fff;
 }
 .todo-wrap .todo-list li span {
     font-weight: bold;
