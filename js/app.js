@@ -52,8 +52,6 @@ const TODO_KEY = 'todo';
 
 let todos = [];
 
-function 
-
 function saveTodo(){
     localStorage.setItem(TODO_KEY, JSON.stringify(todos));
 }
