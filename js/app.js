@@ -7,6 +7,7 @@ const greeting = document.querySelector('.greeting');
 const todoFrom = document.querySelector('.todo-form');
 const todoInput = todoFrom.querySelector('input');
 const todoList = document.querySelector('.todo-list');
+const todoItem = document.querySelector('.todo-list li');
 const date = document.querySelector('.date'); 
 
 
@@ -56,10 +57,23 @@ function saveTodo(){
     localStorage.setItem(TODO_KEY, JSON.stringify(todos));
 }
 
+function editTodo(event) {
+    const strong = event.target.parentElement;
+    const li = strong.parentElement;
+    const span = li.firstChild;
+    todoInput.value = span.innerText; 
+    targetId = li.id;
+    console.log(targetId)
+    const local = localStorage.getItem(TODO_KEY);
+    console.log(local)
+    todos = todos.filter((todo) => todo.id !== parseInt(li.id));
+
+    // if()
+}
+
 function deleteTodo(event){
     const button = event.target.parentElement;
     const li = button.parentElement;
-    console.log(li)
     li.remove();
     todos = todos.filter((todo) => todo.id !== parseInt(li.id));
     saveTodo();
@@ -72,6 +86,7 @@ function paintTodo(newTodo){
     span.innerText = newTodo.text;
     const strong = document.createElement('strong');
     strong.innerHTML = '<i class="fa-solid fa-pen"></i>';
+    strong.addEventListener('click', editTodo);
     const button = document.createElement('button');
     button.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
     button.addEventListener('click', deleteTodo);
