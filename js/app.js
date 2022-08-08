@@ -52,23 +52,28 @@ myPage.addEventListener('click', logout);
 const TODO_KEY = 'todo';
 
 let todos = [];
+let mode = 'insert';
+let targetId;
+let editdom;
 
 function saveTodo(){
     localStorage.setItem(TODO_KEY, JSON.stringify(todos));
+    mode = 'insert';
 }
 
-function editTodo(event) {
+function getTargetSpan(event) {
     const strong = event.target.parentElement;
     const li = strong.parentElement;
     const span = li.firstChild;
-    todoInput.value = span.innerText; 
     targetId = li.id;
-    console.log(targetId)
-    const local = localStorage.getItem(TODO_KEY);
-    console.log(local)
-    todos = todos.filter((todo) => todo.id !== parseInt(li.id));
 
-    // if()
+    return span;
+}
+
+function editTodo(event) {
+    editdom = getTargetSpan(event);
+    todoInput.value = editdom.innerText; 
+    mode = 'edit'; 
 }
 
 function deleteTodo(event){
@@ -80,20 +85,24 @@ function deleteTodo(event){
 }
 
 function paintTodo(newTodo){
-    const li = document.createElement('li');
-    li.id = newTodo.id;
-    const span = document.createElement('span');
-    span.innerText = newTodo.text;
-    const strong = document.createElement('strong');
-    strong.innerHTML = '<i class="fa-solid fa-pen"></i>';
-    strong.addEventListener('click', editTodo);
-    const button = document.createElement('button');
-    button.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
-    button.addEventListener('click', deleteTodo);
-    li.appendChild(span);
-    li.appendChild(strong);
-    li.appendChild(button);
-    todoList.appendChild(li);
+    if(mode == 'edit') {
+        editdom.innerText = newTodo.text;
+    } else {
+        const li = document.createElement('li');
+        li.id = newTodo.id;
+        const span = document.createElement('span');
+        span.innerText = newTodo.text;
+        const strong = document.createElement('strong');
+        strong.innerHTML = '<i class="fa-solid fa-pen"></i>';
+        strong.addEventListener('click', editTodo);
+        const button = document.createElement('button');
+        button.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+        button.addEventListener('click', deleteTodo);
+        li.appendChild(span);
+        li.appendChild(strong);
+        li.appendChild(button);
+        todoList.appendChild(li);
+    }
 }
  
 function submitTodo(event){
@@ -104,7 +113,15 @@ function submitTodo(event){
         text: newTodo,
         id : Date.now(),
     }
-    todos.push(newTodoObj);
+    if(mode == 'insert') {
+        todos.push(newTodoObj);
+    } else {
+        todos.forEach(function(todo) {
+            if(todo.id == targetId) {
+                todo.text = newTodo;
+            }
+        })
+    }
     paintTodo(newTodoObj);
     saveTodo();
 }
